@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 FROM base AS builder
 
 # Copiar apenas requirements.txt primeiro (cache eficiente)
-COPY docker-app\requirements.txt /app/
+COPY docker-app/requirements.txt /app/
 
 # Instalar dependências em cache layer
 RUN pip install --upgrade pip \
