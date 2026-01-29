@@ -9,7 +9,7 @@ on:
    
 jobs:
   test-auth-service:
-    runs-on: n-3dgn574
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: burguer-app/auth-service
