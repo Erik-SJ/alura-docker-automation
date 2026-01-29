@@ -24,6 +24,6 @@ jobs:
 
       - name: Docker Run and Images
         run: |
-          docker run auth-service:0.1
+          #docker run auth-service:0.1
           docker images
           docker ps -a
