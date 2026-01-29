@@ -21,3 +21,9 @@ jobs:
         working-directory: docker-app
         run: |
           docker build -t auth-service:0.1 . -f Dockerfile
+
+      - name: Docker Run and Images
+        run: |
+          docker run auth-service:0.1
+          docker images
+          docker ps -a
