@@ -22,8 +22,14 @@ jobs:
         run: |
           docker build -t auth-service:0.1 . -f Dockerfile
 
-      - name: Docker Run and Images
-        run: |
-          #docker run auth-service:0.1
-          docker images
-          docker ps -a
+      # - name: Docker Run and Images
+      #   run: docker run auth-service:0.1
+      
+      - name: List Images
+        run: docker images
+
+      - name: List Containers
+        run: docker ps -a
+
+      - name: Remove Container
+        run: docker rm auth-service:0.1
