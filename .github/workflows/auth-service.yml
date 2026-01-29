@@ -4,8 +4,8 @@ on:
   push:
     branches: [ "release" ]
    
-  # pull_request:
-  #   branches: [ "unit-test-preparation" ]
+  pull_request:
+    branches: [ "release" ]
    
 jobs:
   test-auth-service:
