@@ -32,4 +32,5 @@ jobs:
     - name: 🧪 Run tests with coverage
       run: |
         pytest --cov=. --cov-report=term-missing --cov-branch --cov-fail-under=65
-        pytest --cov --cov-report=html
+        pytest --junitxml=report.xml
+        
