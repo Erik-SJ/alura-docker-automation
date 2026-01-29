@@ -1,0 +1,23 @@
+name: Deploy Docker Workflow
+
+on: 
+   push: 
+     branches: 
+     - release
+
+jobs:
+  deploy-docker:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker containers
+        working-directory: docker-app
+        run: |
+          docker build -t auth-service:0.1 . -f Dockerfile
