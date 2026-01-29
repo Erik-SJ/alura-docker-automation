@@ -1,4 +1,4 @@
-name: Tests - Burguer App/Auth Service
+name: Burguer App/Auth Service - Tests
 
 on:
   push:
