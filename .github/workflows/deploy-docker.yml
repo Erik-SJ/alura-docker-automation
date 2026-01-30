@@ -54,12 +54,31 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-        
+
       - name: Test App Auth-Service
         working-directory: burguer-app/auth-service
         run: |
           pip install -r requirements.txt
           pytest -v
+          
+      - name: Test App Order-Service
+        working-directory: burguer-app/order-service
+        run: |
+          pip install -r requirements.txt
+          pytest -v    
+
+      - name: Test App Product-Service
+        working-directory: burguer-app/product-service
+        run: |
+          pip install -r requirements.txt
+          pytest -v
+
+      - name: Test App User-Service
+        working-directory: burguer-app/user-service
+        run: |
+          pip install -r requirements.txt
+          pytest -v
+
 
 
 
