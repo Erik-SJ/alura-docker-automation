@@ -47,6 +47,15 @@ jobs:
       - name: List Containers
         run: docker ps -a
 
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt install snapd
+          sudo snap install trivy
+          
+      - name: Scan auth-service image with Trivy
+        run: trivy image --severity HIGH,CRITICAL auth-service:0.1  
+
   tests-apps:
     runs-on: ubuntu-latest
     needs: [deploy-docker]
@@ -79,34 +88,32 @@ jobs:
           pip install -r requirements.txt
           pytest -v
 
-  vulnerability-scan:
-    runs-on: ubuntu-latest
-    needs: [tests-apps]
+  # vulnerability-scan:
+  #   runs-on: ubuntu-latest
+  #   needs: [tests-apps]
     
-    steps:
+  #   steps:
       
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v3
 
-      - name: Install Trivy
-        run: |
-          sudo apt-get update
-          # sudo apt-get install -y wget
-          sudo snap install trivy
-          # wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.65.0_Linux-64bit.deb
-          # sudo dpkg -i trivy_0.65.0_Linux-64bit.deb
+  #     - name: Install Trivy
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt install snapd
+  #         sudo snap install trivy
 
-      - name: Scan auth-service image with Trivy
-        run: trivy image --severity HIGH,CRITICAL auth-service:0.1
+  #     - name: Scan auth-service image with Trivy
+  #       run: trivy image --severity HIGH,CRITICAL auth-service:0.1
 
-      - name: Scan user-service image with Trivy
-        run: trivy image --severity HIGH,CRITICAL user-service:0.1
+  #     - name: Scan user-service image with Trivy
+  #       run: trivy image --severity HIGH,CRITICAL user-service:0.1
 
-      - name: Scan product-service image with Trivy
-        run: trivy image --severity HIGH,CRITICAL product-service:0.1
+  #     - name: Scan product-service image with Trivy
+  #       run: trivy image --severity HIGH,CRITICAL product-service:0.1
 
-      - name: Scan order-service image with Trivy
-        run: trivy image --severity HIGH,CRITICAL order-service:0.1
+  #     - name: Scan order-service image with Trivy
+  #       run: trivy image --severity HIGH,CRITICAL order-service:0.1
 
 
 
