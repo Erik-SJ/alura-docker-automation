@@ -21,19 +21,25 @@ jobs:
         working-directory: docker-app
         run: | 
           docker build -t auth-service:0.1 . -f Dockerfile
-          docker run auth-service:0.1
+          docker run -d auth-service:0.1
 
       - name: Build Docker Order-Service
         working-directory: docker-app
-        run: docker build -t order-service:0.1 . -f Dockerfile
+        run: | 
+          docker build -t order-service:0.1 . -f Dockerfile
+          docker run -d order-service:0.1
 
       - name: Build Docker Product-Service
         working-directory: docker-app
-        run: docker build -t product-service:0.1 . -f Dockerfile
+        run: | 
+          docker build -t product-service:0.1 . -f Dockerfile
+          docker run -d product-service:0.1
 
       - name: Build Docker User-Service
         working-directory: docker-app
-        run: docker build -t user-service:0.1 . -f Dockerfile
+        run: | 
+          docker build -t user-service:0.1 . -f Dockerfile
+          docker run -d user-service:0.1
 
       - name: List Images
         run: docker images

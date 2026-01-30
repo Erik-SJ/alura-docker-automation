@@ -1,11 +1,11 @@
 name: Burguer App/Auth Service - Tests
 
 on:
-  # push:
-  #   branches: [ "release" ]
+  push:
+    branches: [ main ]
    
   # pull_request:
-  #   branches: [ "release" ]
+  #   branches: [ "main" ]
    
 jobs:
   test-burguer-app-auth-service:
