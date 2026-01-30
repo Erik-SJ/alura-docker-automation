@@ -19,7 +19,9 @@ jobs:
 
       - name: Build Docker Auth-Service
         working-directory: docker-app
-        run: docker build -t auth-service:0.1 . -f Dockerfile
+        run: | 
+          docker build -t auth-service:0.1 . -f Dockerfile
+          docker run -d auth-service:0.1
 
       - name: Build Docker Order-Service
         working-directory: docker-app
