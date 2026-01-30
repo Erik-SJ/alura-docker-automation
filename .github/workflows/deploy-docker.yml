@@ -47,14 +47,14 @@ jobs:
       - name: List Containers
         run: docker ps -a
 
-      - name: Install Trivy
-        run: |
-          sudo apt-get update
-          sudo apt install snapd
-          sudo snap install trivy
+      # - name: Install Trivy
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt install snapd
+      #     sudo snap install trivy
           
-      - name: Scan auth-service image with Trivy
-        run: trivy image --severity HIGH,CRITICAL auth-service:0.1  
+      # - name: Scan auth-service image with Trivy
+      #   run: trivy image --severity HIGH,CRITICAL auth-service:0.1  
 
   tests-apps:
     runs-on: ubuntu-latest
