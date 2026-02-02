@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  app-flask:
+    build:
+      context: docker-flask
+      dockerfile: Dockerfile
+    container_name: app-flask
+    ports:
+      - "5000:5000"
+    # env_file:
+    #   - ./auth-service/.env
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge

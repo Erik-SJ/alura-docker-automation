@@ -1,7 +1,7 @@
 # ================================
 # Etapa 1: Imagem base de build
 # ================================
-FROM python:3.11-slim AS base
+FROM python:3.14.2-alpine3.23 AS base
 
 # Definir diretório de trabalho padrão
 WORKDIR /app
@@ -21,16 +21,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 FROM base AS builder
 
 # Copiar apenas requirements.txt primeiro (cache eficiente)
-COPY requirements.txt /app/
+COPY docker-flask/requirements.txt /app/
 
 # Instalar dependências em cache layer
 RUN pip install --upgrade pip \
     && pip install --prefix=/install -r requirements.txt
 
-# ================================
-# Etapa 3: Final image (slim)
-# ================================
-FROM python:3.11-slim AS final
+# =====================
+# Etapa 3: Final image 
+# =====================
+FROM python:3.14.2-alpine3.23 AS final
 
 WORKDIR /app
 
@@ -38,10 +38,10 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 
 # Copiar código do microserviço
-COPY . /app
+COPY docker-flask /app
 
 # Porta padrão (ajustável no docker-compose)
-EXPOSE 5000 5001 5002 5003
+EXPOSE 5000
 
 # Comando de inicialização
-CMD ["python", "app.py"]
+CMD ["flask run", "python", "app.py"]
