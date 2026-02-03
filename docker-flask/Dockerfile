@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 FROM base AS builder
 
 # Copiar apenas requirements.txt primeiro (cache eficiente)
-COPY docker-flask/requirements.txt /app/
+COPY requirements.txt /app/
 
 # Instalar dependências em cache layer
 RUN pip install --upgrade pip \
@@ -38,7 +38,7 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 
 # Copiar código do microserviço
-COPY docker-flask/app.py /app
+COPY app.py /app
 
 # Porta padrão do Flask
 EXPOSE 5000
