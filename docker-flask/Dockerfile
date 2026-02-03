@@ -24,7 +24,7 @@ FROM base AS builder
 COPY requirements.txt /app/
 
 # Instalar dependências em cache layer
-RUN pip install --upgrade pip setuptools wheel
+RUN python -m pip install --upgrade pip setuptools wheel
 RUN pip install --upgrade pip \
     && pip install --prefix=/install -r requirements.txt
 
