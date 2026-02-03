@@ -30,7 +30,7 @@ jobs:
 
       # Subir containers
       - name: Run Docker Compose
-        working-directory: docker-flask/docker-compose.yml
+        working-directory: docker-flask
         run: |
           docker compose up --build
           # docker -f docker-compose.yml up -d --build
