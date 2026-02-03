@@ -49,4 +49,4 @@ COPY app.py /app
 EXPOSE 5000
 
 # Comando de inicialização
-CMD ["python", "app.py"]
+CMD ["python", "app.py", "flask run"]
