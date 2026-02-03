@@ -44,5 +44,5 @@ jobs:
 
       # Parar containers ao final
       - name: Shut down containers
-        working-directory: docker-flask
+        #working-directory: docker-flask
         run: docker-compose down
