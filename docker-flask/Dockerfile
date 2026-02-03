@@ -1,7 +1,8 @@
 # ================================
 # Etapa 1: Imagem base de build
 # ================================
-FROM python:3.14.2-alpine3.23 AS base
+#FROM python:3.14.2-alpine3.23 AS bas
+FROM python:3.13.11-bookworm AS base
 
 # Definir diretório de trabalho padrão
 WORKDIR /app
@@ -25,7 +26,7 @@ COPY requirements.txt /app/
 
 # Instalar dependências em cache layer
 RUN python -m pip install --upgrade pip setuptools wheel && pip install --prefix=/install -r requirements.txt
-RUN python -m pip install --only-binary numpy "numpy==1.22.0
+#RUN python -m pip install --only-binary numpy "numpy==1.22.0
 
 # RUN pip install --upgrade pip \
 #     && pip install --prefix=/install -r requirements.txt
@@ -33,7 +34,8 @@ RUN python -m pip install --only-binary numpy "numpy==1.22.0
 # =====================
 # Etapa 3: Final image 
 # =====================
-FROM python:3.14.2-alpine3.23 AS final
+#FROM python:3.14.2-alpine3.23 AS final
+FROM python:3.13.11-bookworm AS final
 
 WORKDIR /app
 
