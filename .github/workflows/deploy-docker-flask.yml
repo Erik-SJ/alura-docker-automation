@@ -36,7 +36,6 @@ jobs:
           # docker -f docker-compose.yml up -d --build
           # docker compose up --build
           # docker-compose up docker-compose.yml
-          #tteste
 
       # # Testar os serviços
       # - name: Test App Flask
