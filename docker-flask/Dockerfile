@@ -25,6 +25,8 @@ COPY requirements.txt /app/
 
 # Instalar dependências em cache layer
 RUN python -m pip install --upgrade pip setuptools wheel && pip install --prefix=/install -r requirements.txt
+RUN pip install python-core
+
 # RUN pip install --upgrade pip \
 #     && pip install --prefix=/install -r requirements.txt
 
