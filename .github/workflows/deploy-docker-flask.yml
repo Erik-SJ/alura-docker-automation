@@ -43,4 +43,4 @@ jobs:
 
       # Parar containers ao final
       - name: Shut down containers
-        run: docker compose down -f docker-flask/compose.yaml
+        run: docker compose -f docker-flask/compose.yaml down
