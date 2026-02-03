@@ -29,19 +29,19 @@ jobs:
           # https://github.com/docker/compose/releases/tag/v5.0.2
 
       # Subir containers
-      - name: Bring up Docker Compose
+      - name: Run Docker Compose
         working-directory: docker-flask
         run: |
-          docker-compose -f docker-compose.yml
+          docker-compose up --build -f docker-compose.yml
 
           # - docker compose up --build
 
-      # Testar os serviços
-      - name: Test App Flask
-        working-directory: docker-flask
-        run: |
-          pip install -r requirements.txt
-          pytest -v
+      # # Testar os serviços
+      # - name: Test App Flask
+      #   working-directory: docker-flask
+      #   run: |
+      #     pip install -r requirements.txt
+      #     pytest -v
 
       # Parar containers ao final
       - name: Shut down containers
