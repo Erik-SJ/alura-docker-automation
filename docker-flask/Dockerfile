@@ -11,9 +11,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 # Instalar dependências do sistema (otimizado)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential gcc \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     build-essential gcc \
+#     && rm -rf /var/lib/apt/lists/*
 
 # ================================
 # Etapa 2: Instalar requirements
