@@ -32,7 +32,8 @@ jobs:
       - name: Run Docker Compose
         working-directory: docker-flask
         run: |
-          docker -f docker-compose.yml up -d --build
+          docker compose build
+          # docker -f docker-compose.yml up -d --build
           # docker compose up --build
           # docker-compose up docker-compose.yml
 
