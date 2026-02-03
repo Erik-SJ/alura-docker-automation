@@ -32,7 +32,7 @@ jobs:
       - name: Run Docker Compose
         #working-directory: docker-flask
         run: |
-          docker compose -f docker-flask\compose.yaml up --build
+          docker compose -f docker-flask/compose.yaml up --build
 
       # # Testar os serviços
       # - name: Test App Flask
