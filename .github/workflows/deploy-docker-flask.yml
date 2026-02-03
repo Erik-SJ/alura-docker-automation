@@ -30,12 +30,9 @@ jobs:
 
       # Subir containers
       - name: Run Docker Compose
-        working-directory: docker-flask
+        #working-directory: docker-flask
         run: |
-          docker compose -f compose.yaml up --build
-          # docker -f docker-compose.yml up -d --build
-          # docker compose up --build
-          # docker-compose up docker-compose.yml
+          docker compose -f docker-flask\compose.yaml up --build
 
       # # Testar os serviços
       # - name: Test App Flask
