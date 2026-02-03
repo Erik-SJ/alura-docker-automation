@@ -38,9 +38,9 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 
 # Copiar código do microserviço
-COPY docker-flask /app
+COPY docker-flask/app.py /app
 
-# Porta padrão (ajustável no docker-compose)
+# Porta padrão do Flask
 EXPOSE 5000
 
 # Comando de inicialização
