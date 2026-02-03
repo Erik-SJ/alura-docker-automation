@@ -30,7 +30,6 @@ jobs:
 
       # Subir containers
       - name: Run Docker Compose
-        #working-directory: docker-flask
         run: |
           docker compose -f docker-flask/compose.yaml up --build -d
           docker ps -a
@@ -44,5 +43,4 @@ jobs:
 
       # Parar containers ao final
       - name: Shut down containers
-        #working-directory: docker-flask
-        run: docker-compose down
+        run: docker compose down -f docker-flask/compose.yaml
