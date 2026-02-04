@@ -30,15 +30,15 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:img_alura_git_1.0 ./burguer-app/auth-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:img_alura_git_1.0 ./burguer-app/user-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:img_alura_git_1.0 ./burguer-app/product-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:img_alura_git_1.0 ./burguer-app/order-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:alura1.0 ./burguer-app/auth-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:alura1.0 ./burguer-app/user-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:alura1.0 ./burguer-app/product-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:alura1.0 ./burguer-app/order-service
           docker image ls
 
       # - name: Push Docker images to Docker Hub
       #   run: |
-      #     docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:img_alura_git_1.0
-      #     docker push ${{ secrets.DOCKER_USERNAME }}/user-service:img_alura_git_1.0
-      #     docker push ${{ secrets.DOCKER_USERNAME }}/product-service:img_alura_git_1.0
-      #     docker push ${{ secrets.DOCKER_USERNAME }}/order-service:img_alura_git_1.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:alura1.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/user-service:alura1.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/product-service:alura1.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/order-service:alura1.0
