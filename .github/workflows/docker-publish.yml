@@ -16,10 +16,10 @@ jobs:
       - name: Build Docker images
       
         run: |
-          docker build -t /auth-service:2.0 ./burguer-app/auth-service
-          docker build -t /user-service:2.0 ./burguer-app/user-service
-          docker build -t /product-service:2.0 ./burguer-app/product-service
-          docker build -t /order-service:2.0 ./burguer-app/order-service
+          docker build -t auth-service:2.0 ./burguer-app/auth-service
+          docker build -t user-service:2.0 ./burguer-app/user-service
+          docker build -t product-service:2.0 ./burguer-app/product-service
+          docker build -t order-service:2.0 ./burguer-app/order-service
           docker ps -a
 
       # - name: Log in to Docker Hub
