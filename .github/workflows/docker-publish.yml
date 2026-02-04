@@ -3,7 +3,7 @@ name: Build and Publish Docker Images
 on:
   push:
     branches:
-        - aula-04
+        - docker-publish
     
 jobs:
   build-and-push:
@@ -13,23 +13,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: Build Docker images
       
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:2.0 ./burguer-app/auth-service
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:2.0 ./burguer-app/user-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:2.0 ./burguer-app/product-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:2.0 ./burguer-app/order-service
+          docker build -t /auth-service:2.0 ./burguer-app/auth-service
+          docker build -t /user-service:2.0 ./burguer-app/user-service
+          docker build -t /product-service:2.0 ./burguer-app/product-service
+          docker build -t /order-service:2.0 ./burguer-app/order-service
+          docker ps -a
 
-      - name: Push Docker images to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:2.0
-          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:2.0
-          docker push ${{ secrets.DOCKER_USERNAME }}/product-service:2.0
-          docker push ${{ secrets.DOCKER_USERNAME }}/order-service:2.0    
+      # - name: Log in to Docker Hub
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # - name: Build Docker images
+      
+      #   run: |
+      #     docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:2.0 ./burguer-app/auth-service
+      #       docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:2.0 ./burguer-app/user-service
+      #     docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:2.0 ./burguer-app/product-service
+      #     docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:2.0 ./burguer-app/order-service
+
+      # - name: Push Docker images to Docker Hub
+      #   run: |
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:2.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/user-service:2.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/product-service:2.0
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/order-service:2.0    
