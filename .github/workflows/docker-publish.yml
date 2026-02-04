@@ -38,7 +38,11 @@ jobs:
 
       - name: Push Docker images to Docker Hub
         run: |
-          docker push auth-service:alura1.0
-          docker push user-service:alura1.0
-          docker push product-service:alura1.0
-          docker push order-service:alura1.0
+          docker push ${{ secrets.DOCKER_USERNAME }}/esjacob:alura1.0
+       
+          # docker push auth-service:alura1.0
+          # docker push user-service:alura1.0
+          # docker push product-service:alura1.0
+          # docker push order-service:alura1.0
+          #docker push your-username/my-repo:v1.0
+       
