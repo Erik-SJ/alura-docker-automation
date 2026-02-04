@@ -20,6 +20,7 @@ jobs:
           docker build -t user-service:img-alura-git-1.0 ./burguer-app/user-service
           docker build -t product-service:img-alura-git-1.0 ./burguer-app/product-service
           docker build -t order-service:img-alura-git-1.0 ./burguer-app/order-service
+          docker image ls
 
       # - name: Log in to Docker Hub
       #   uses: docker/login-action@v2
