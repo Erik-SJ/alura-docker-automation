@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t auth-service:alura1.0 ./burguer-app/auth-service
+          docker build -t esjacob/auth-service:alura1.0 ./burguer-app/auth-service
           docker build -t user-service:alura1.0 ./burguer-app/user-service
           docker build -t product-service:alura1.0 ./burguer-app/product-service
           docker build -t order-service:alura1.0 ./burguer-app/order-service
