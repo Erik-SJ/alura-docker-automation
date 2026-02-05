@@ -21,16 +21,26 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t esjacob/auth-service:alura1.3 ./burguer-app/auth-service
-          docker build -t esjacob/user-service:alura1.0 ./burguer-app/user-service
-          # docker build -t product-service:alura1.0 ./burguer-app/product-service
-          # docker build -t order-service:alura1.0 ./burguer-app/order-service
+
+          # se o valor da ${{ secrets.DOCKER_USERNAME }} = erik.sjacob@gmail.com
+          # docker build -t esjacob/auth-service:alura1.3 ./burguer-app/auth-service
+          # docker build -t esjacob/user-service:alura1.0 ./burguer-app/user-service
+
+          # se o valor da ${{ secrets.DOCKER_USERNAME }} = esjacob (apenas o username)
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:username1.0 ./burguer-app/auth-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:username1.0 ./burguer-app/user-service
+        
           docker image ls
 
       - name: Push Docker images to Docker Hub
         run: |
-          docker push esjacob/auth-service:alura1.3
-          docker push esjacob/user-service:alura1.0
-          # docker push ${{ secrets.DOCKER_USERNAME }}/esjacob/auth-service:alura1.0
+
+          # se o valor da ${{ secrets.DOCKER_USERNAME }} = erik.sjacob@gmail.com
           # docker push your-username/my-repo:v1.0
-       
+          # docker push esjacob/auth-service:alura1.3
+          # docker push esjacob/user-service:alura1.0
+
+          # se o valor da ${{ secrets.DOCKER_USERNAME }} = esjacob (apenas o username)
+          docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:username1.0
+          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:username1.0
+          
