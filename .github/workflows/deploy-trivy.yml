@@ -58,7 +58,7 @@ jobs:
           output: 'trivy-report.json'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true 
-          exit-code: 0 # Bloqueia caso haja vulnerabilidades
+          exit-code: 0 # Bloqueia caso haja vulnerabilidades...
           #exit-code: 0 # Bypass caso haja vulnerabilidades...
 
     #  - name: Scan auth-service image
