@@ -35,12 +35,12 @@ jobs:
      - name: Build Docker images
        run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0 ./burguer-app/auth-service
-        #   docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-2.0 ./burguer-app/user-service
-        #   docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-2.0 ./burguer-app/order-service
-        #   docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-2.0 ./burguer-app/product-service
-
-          docker image ls
-
+          # docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-2.0 ./burguer-app/user-service
+          # docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-2.0 ./burguer-app/order-service
+          # docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-.0 ./burguer-app/product-service
+        
+          docker image ls   
+    
      - name: Check for Vulnerabilities with Trivy
        run: |
         sudo apt-get update
