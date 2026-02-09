@@ -53,7 +53,7 @@ jobs:
        uses: aquasecurity/trivy-action@master
        with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0
-          version: '--skip-version-check'
+          version: 'latest'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
