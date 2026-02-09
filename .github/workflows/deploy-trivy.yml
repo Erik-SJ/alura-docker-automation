@@ -52,12 +52,13 @@ jobs:
 
        uses: aquasecurity/trivy-action@master
        with:
-          image-ref: ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0 --skip-version-check
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0
+          version: '--skip-version-check'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true 
-          exit-code: 1 #Bloqueia o deploy se houver vulnerabilidades críticas ou altas
+          exit-code: 1 #Bloqueia o deploy se houver vulnerabilidades
 
     #  - name: Scan auth-service image
     #    run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0
