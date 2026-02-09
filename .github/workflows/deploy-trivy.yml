@@ -35,9 +35,9 @@ jobs:
      - name: Build Docker images
        run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-3.0 ./burguer-app/auth-service
-          # docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-3.0 ./burguer-app/user-service
-          # docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-3.0 ./burguer-app/order-service
-          # docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-3.0 ./burguer-app/product-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-3.0 ./burguer-app/user-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-3.0 ./burguer-app/order-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-3.0 ./burguer-app/product-service
         
           docker image ls   
     
