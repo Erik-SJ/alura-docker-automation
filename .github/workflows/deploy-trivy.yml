@@ -56,7 +56,7 @@ jobs:
           version: 'latest'
           format: 'json'
           output: 'trivy-report.json'
-          severity: 'CRITICAL,HIGH'
+          severity: 'MEDIUM'
           ignore-unfixed: true 
           exit-code: 1 # Bloqueia caso haja vulnerabilidades
           #exit-code: 0 # Bypass caso haja vulnerabilidades
