@@ -59,7 +59,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true 
           exit-code: 0 # Bloqueia caso haja vulnerabilidades
-          #exit-code: 0 # Bypass caso haja vulnerabilidades.
+          #exit-code: 0 # Bypass caso haja vulnerabilidades...
 
     #  - name: Scan auth-service image
     #    run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0
