@@ -49,16 +49,16 @@ jobs:
         sudo dpkg -i trivy_0.66.0_Linux-64bit.deb
 
      - name: Scan auth-service image
-       run: trivy image --severity HIGH,CRITICAL burguer-app/auth-service:trivy-1.0
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0
 
      - name: Scan user-service image
-       run: trivy image --severity HIGH,CRITICAL burguer-app/user-service:trivy-1.0
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-1.0
 
      - name: Scan order-service image
-       run: trivy image --severity HIGH,CRITICAL burguer-app/order-service:trivy-1.0
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-1.0
 
      - name: Scan product-service image
-       run: trivy image --severity HIGH,CRITICAL burguer-app/product-service:trivy-1.0
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-1.0
 
      - name: List Docker Images
        run: docker images
