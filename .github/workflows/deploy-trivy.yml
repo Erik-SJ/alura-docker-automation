@@ -34,13 +34,13 @@ jobs:
 
      - name: Build Docker images
        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0 ./burguer-app/auth-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-1.0 ./burguer-app/user-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-1.0 ./burguer-app/order-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-1.0 ./burguer-app/product-service
-        
-          docker image ls   
-    
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0 ./burguer-app/auth-service
+        #   docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-2.0 ./burguer-app/user-service
+        #   docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-2.0 ./burguer-app/order-service
+        #   docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-2.0 ./burguer-app/product-service
+
+          docker image ls
+
      - name: Check for Vulnerabilities with Trivy
        run: |
         sudo apt-get update
@@ -48,24 +48,35 @@ jobs:
         wget https://github.com/aquasecurity/trivy/releases/download/v0.66.0/trivy_0.66.0_Linux-64bit.deb
         sudo dpkg -i trivy_0.66.0_Linux-64bit.deb
 
-     - name: Scan auth-service image
-       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0
+     - name: Scan Trivy on the Image
 
-     - name: Scan user-service image
-       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-1.0
+       uses: aquasecurity/trivy-action@master
+       with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true 
+          exit-code: 1 #Bloqueia o deploy se houver vulnerabilidades críticas ou altas
 
-     - name: Scan order-service image
-       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-1.0
+    #  - name: Scan auth-service image
+    #    run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0
 
-     - name: Scan product-service image
-       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-1.0
+    #  - name: Scan user-service image
+    #    run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-1.0
+
+    #  - name: Scan order-service image
+    #    run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-1.0
+
+    #  - name: Scan product-service image
+    #    run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-1.0
 
      - name: List Docker Images
        run: docker images
 
      - name: Push Docker images to Docker Hub
        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-1.0
-          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-1.0
-          docker push ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-1.0
-          docker push ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-1.0   
+          docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-2.0
+        #   docker push ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-1.0
+        #   docker push ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-1.0
+        #   docker push ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-1.0   
