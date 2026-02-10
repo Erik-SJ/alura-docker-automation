@@ -1,0 +1,77 @@
+name: Deploy Docker with Trivy Workflow
+
+on:
+  push:
+    branches: [ docker-git-commit-hash ]
+
+jobs: 
+
+   docker-deploy:
+
+     runs-on: ubuntu-latest
+
+     steps:
+     - name: Checkout Repository
+       uses: actions/checkout@v3
+
+     - name: Set up Docker Buildx
+       uses: docker/setup-buildx-action@v2
+
+     - name: Log in to Docker Hub
+       uses: docker/login-action@v2
+       with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}  
+    
+     - name: Install Docker Compose
+       run: |
+        if ! command -v docker-compose &> /dev/null
+        then
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+        fi
+
+     - name: Version Commit Hash
+       id: semver
+       run: |
+        VERSION = $(echo "${GITHUB_SHA}" | cut -c1-7)
+        echo "IMAGE_TAG = ${VERSION}" >> $GITHUB_ENV
+
+     - name: Build Docker images
+       run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ env.IMAGE_TAG }} ./burguer-app/auth-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:${{ env.IMAGE_TAG }} ./burguer-app/user-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/order-service:${{ env.IMAGE_TAG }} ./burguer-app/order-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/product-service:${{ env.IMAGE_TAG }} ./burguer-app/product-service
+        
+          docker image ls   
+    
+     - name: Install Trivy
+       run: |
+        sudo apt-get update
+        sudo apt-get install -y wget
+        wget https://github.com/aquasecurity/trivy/releases/download/v0.66.0/trivy_0.66.0_Linux-64bit.deb
+        sudo dpkg -i trivy_0.66.0_Linux-64bit.deb   
+
+     - name: Scan Image [Auth-Service]
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ env.IMAGE_TAG }}
+
+     - name: Scan Image [User-Service]
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/user-service:${{ env.IMAGE_TAG }}
+
+     - name: Scan Image [Order-Service]
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/order-service:${{ env.IMAGE_TAG }}
+
+     - name: Scan Image [Product-Service]
+       run: trivy image --severity HIGH,CRITICAL ${{ secrets.DOCKER_USERNAME }}/product-service:${{ env.IMAGE_TAG }}
+
+    #  - name: List Docker Images
+    #    run: docker images
+
+    #  - name: Push Docker images to Docker Hub
+    #    run: |
+    #       docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:trivy-3.0
+    #       docker push ${{ secrets.DOCKER_USERNAME }}/user-service:trivy-3.0
+    #       docker push ${{ secrets.DOCKER_USERNAME }}/order-service:trivy-3.0
+    #       docker push ${{ secrets.DOCKER_USERNAME }}/product-service:trivy-3.0   
