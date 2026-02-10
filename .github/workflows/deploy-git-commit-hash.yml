@@ -84,7 +84,7 @@ jobs:
         echo "Rollback Automático"
 
         for service in auth-service user-service order-service product-service; do
-         PREV_TAG=$(docker images docker/${{ secrets.DOCKER_USERNAME }}/$service --format "{{.Tag}}" | grep -v latest | head -n 2)
+         PREV_TAG=$(docker images ${{ secrets.DOCKER_USERNAME }}/$service --format "{{.Tag}}" | grep -v latest | head -n 2)
 
          if [ -z "$PREV_TAG" ]; then
            echo "No previous image found for $service, skipping rollback."
