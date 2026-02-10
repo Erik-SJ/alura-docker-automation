@@ -35,8 +35,8 @@ jobs:
      - name: Version Commit Hash
        id: semver
        run: |
-        VERSION = $(echo "${GITHUB_SHA}" | cut -c1-7)
-        echo "IMAGE_TAG = ${VERSION}" >> $GITHUB_ENV
+        VERSION=$(echo "${GITHUB_SHA}" | cut -c1-7)
+        echo "IMAGE_TAG=${VERSION}" >> $GITHUB_ENV
 
      - name: Build Docker images
        run: |
