@@ -84,13 +84,13 @@ jobs:
         echo "Rollback Automático"
 
         for service in auth-service user-service order-service product-service; do
-         PREV_TAG=$(docker images docker.io/${{ secrets.DOCKER_USERNAME }}/auth-service --format "{{.Tag}}" | grep -v latest | head -n 2)
+         PREV_TAG=$(docker images docker.io/${{ secrets.DOCKER_USERNAME }}/$service --format "{{.Tag}}" | grep -v latest | head -n 2)
 
          if [ -z "$PREV_TAG" ]; then
            echo "No previous image found for $service, skipping rollback."
          else
-           docker tag docker.io/${{ secrets.DOCKER_USERNAME }}/auth-service docker.io/${{ secrets.DOCKER_USERNAME }}/auth-service:${PREV_TAG}
-           echo "Rolled back docker.io/${{ secrets.DOCKER_USERNAME }}/auth-service:${{ env.IMAGE_TAG }} to tag $PREV_TAG"
+           docker tag ${{ secrets.DOCKER_USERNAME }}/$service:${{ env.IMAGE_TAG }} ${{ secrets.DOCKER_USERNAME }}/auth-service:${PREV_TAG}
+           echo "Rolled back docker.io/${{ secrets.DOCKER_USERNAME }}/$service:${{ env.IMAGE_TAG }} to tag $PREV_TAG"
          fi 
         done
 
@@ -99,3 +99,15 @@ jobs:
         # docker-compose -f docker-compose.yml -f docker-compose.override.yml down
         # docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d  
         # docker compose -f docker-flask/compose.yaml down
+
+
+        #    for service in auth-service user-service order-service product-service; do
+        #  PREV_TAG=$(docker images burguer-app-${service} --format "{{.Tag}}" | grep -v latest | head -n 2)
+
+        #  if [ -z "$PREV_TAG" ]; then
+        #    echo "No previous image found for $service, skipping rollback."
+        #  else
+        #    docker tag burguer-app-${service}:${PREV_TAG} burguer-app-${service}:latest
+        #    echo "Rolled back $service to tag $PREV_TAG"
+        #  fi 
+        # done
