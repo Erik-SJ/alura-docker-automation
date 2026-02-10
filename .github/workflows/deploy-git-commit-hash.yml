@@ -77,11 +77,11 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/product-service:${{ env.IMAGE_TAG }}   
 
      # *** ROLLBACK ***
-     - name: Roolback to Previous Version
+     - name: Rollback to Previous Version
        working-directory: burguer-app
-       if: failure()
+       #if: failure()
        run: |
-        echo "Roolback Automático"
+        echo "Rollback Automático"
 
         for service in auth-service user-service order-service product-service; do
          PREV_TAG=$(docker images ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ env.IMAGE_TAG }} --format "{{.Tag}}" | grep -v latest | head -n 2)
