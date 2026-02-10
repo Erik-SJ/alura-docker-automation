@@ -75,3 +75,27 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/user-service:${{ env.IMAGE_TAG }}
           docker push ${{ secrets.DOCKER_USERNAME }}/order-service:${{ env.IMAGE_TAG }}
           docker push ${{ secrets.DOCKER_USERNAME }}/product-service:${{ env.IMAGE_TAG }}   
+
+     # *** ROLLBACK ***
+     - name: Roolback to Previous Version
+       working-directory: burguer-app
+       if: failure()
+       run: |
+        echo "Roolback Automático"
+
+        for service in auth-service user-service order-service product-service; do
+         PREV_TAG=$(docker images ${{ secrets.DOCKER_USERNAME }}/auth-service:${{ env.IMAGE_TAG }} --format "{{.Tag}}" | grep -v latest | head -n 2)
+
+         if [ -z "$PREV_TAG" ]; then
+           echo "No previous image found for $service, skipping rollback."
+         else
+           docker tag ${{ secrets.DOCKER_USERNAME }}/auth-service:${PREV_TAG} ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+           echo "Rolled back ${{ secrets.DOCKER_USERNAME }}/auth-service:latest to tag $PREV_TAG"
+         fi 
+        done
+
+        # # Restart containers using previous version
+
+        # docker-compose -f docker-compose.yml -f docker-compose.override.yml down
+        # docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d  
+        # docker compose -f docker-flask/compose.yaml down
