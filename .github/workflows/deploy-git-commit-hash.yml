@@ -89,8 +89,8 @@ jobs:
          if [ -z "$PREV_TAG" ]; then
            echo "No previous image found for $service, skipping rollback."
          else
-           docker tag ${{ secrets.DOCKER_USERNAME }}/auth-service:${PREV_TAG} ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
-           echo "Rolled back ${{ secrets.DOCKER_USERNAME }}/auth-service:latest to tag $PREV_TAG"
+           docker tag ${{ secrets.DOCKER_USERNAME }}/auth-service:${PREV_TAG}
+           echo "Rolled back ${{ secrets.DOCKER_USERNAME }}/auth-service:$PREV_TAG"
          fi 
         done
 
