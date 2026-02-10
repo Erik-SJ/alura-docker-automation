@@ -1,4 +1,4 @@
-name: Deploy Docker with Trivy Workflow
+name: Deploy Docker with Git Commit Hash Workflow
 
 on:
   push:
@@ -98,7 +98,7 @@ jobs:
          if [ -z "$PREV_TAG" ]; then
            echo "No previous image found for $service, skipping rollback."
          else
-           docker tag ${{ secrets.DOCKER_USERNAME }}/$service:${{ env.IMAGE_TAG }} ${{ secrets.DOCKER_USERNAME }}/$service:${PREV_TAG}
+           docker tag ${{ secrets.DOCKER_USERNAME }}/$service:latest ${{ secrets.DOCKER_USERNAME }}/$service:${PREV_TAG}
            echo "Rolled back ${{ secrets.DOCKER_USERNAME }}/$service:${{ env.IMAGE_TAG }} to tag $PREV_TAG"
          fi 
         done
